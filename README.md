@@ -18,17 +18,21 @@ I have spent some time developing **Seoulism**, a Vim theme that approaches East
 While the "Five Directional Colors" (Obangsaek, 五方色) originated in broader East Asian philosophy(by Zou Yan), its true value lies in how it was localized and reconfigured into a rigorous system of order within Korean culture. By stripping away the mystical layers, I found a profound structural and cognitive-scientific core. This theme is an exploration of that hidden logic. It showcases the systemic thinking inherent in the Korean intellectual tradition.
 
 **Beyond the "Zen" Cliché**
+
 This theme is not about oriental minimalism. It presents a five-axis cognitive system where colors are not decorative but functional tools for categorizing hierarchy and logic. It treats color as a refined algorithm for the modern developer’s mind.
 
 **The Principle of "Scene First, Emotion Later" (先景後情)**
+
 This reflects a long-standing intellectual tradition. In this system, the code is treated as the "Scene," which is the functional reality, and it is rendered with absolute clarity. The comments, representing the "Emotion" or human annotation, are intentionally receded into the background. This hierarchy ensures that human sentiment never overshadows the structural truth of the code.
 
 **Pine Ink Black**
+
 Contrary to China, Korean culture preferred Matt Black with pale blue hint.
 Those inks are demonstrated more than a thousand years ago, but this classic tone will still soften your canvas.
 This will gently embrace your own flow, without intercepting who you are.
 
 **A Living Spiritual Legacy**
+
 This systemic approach is not a dead relic of the past. It lives on in the minds of Koreans today, and it serves as the invisible foundation for the vibrant aesthetics of modern K-Culture and Engineering. Whether in the calculated choreography of a performance or the sophisticated visual language of a film, one can see this ancient logic of order and harmony at play.
 
 If you find the neon-saturated contrast of contemporary themes too noisy for deep work, Seoulism offers a grounded and humanistic experience.
