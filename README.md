@@ -61,5 +61,5 @@ colorscheme Seoulism
 
 ## Palette
 
-[Color Palette](./preview.png)
-[Code Example](./code_example.png)
+![Color Palette](./preview.png)
+![Code Example](./code_example.png)
