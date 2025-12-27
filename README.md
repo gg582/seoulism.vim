@@ -59,7 +59,7 @@ This diagram illustrates the cognitive transformation from ancestral elemental a
 - Pine Ash Black
   Matt Black tuned to glitter with blue hint.
 - Reflective Selection
-  When text is selected, it turns into a bright reflective white, simulating a spotlight on a paper-like canvas."
+  When text is selected, it turns into a bright reflective white, simulating a spotlight on a paper-like canvas.
 
 ## Install
 
