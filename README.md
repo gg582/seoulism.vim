@@ -215,6 +215,3 @@ A practical starting point:
 ## License
 
 See `LICENSE` (or the repository license file).
-
-```
-```
