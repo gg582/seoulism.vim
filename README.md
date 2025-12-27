@@ -94,6 +94,35 @@ set termguicolors
 colorscheme Seoulism
 ```
 
+## Code Tendency Checker
+```vimscript
+:wopp  " turn on the tendency checker
+:noopp " turn off the tendency checker
+:warncfg <integer (0-100)> " set the sensitivity within percentage
+```
+
+### Code Tendency Mapping
+
+| Dominance | Core Tendency | Structural Context |
+| --- | --- | --- |
+| **WOOD** (Jade) | **Declarative Birth** | **Header Files**, Interface contracts, Function prototypes, and API definitions. |
+| **FIRE** (Red) | **Operational Heat** | **Control Flow**, Main logic loops, Exception handling, and Dynamic execution. |
+| **EARTH** (Gold) | **Stable Root** | **Config Tables**, Constant mappings, Hardcoded literals, and Resource datasets. |
+| **METAL** (Base) | **Structural Rigidity** | **Type Definitions**, Static schemas, System boilerplate, and Memory allocations. |
+| **WATER** (Void) | **Implicit Space** | **Documentation Blocks**, Extensive comments, Code delimiters, and Meta-data. |
+
+---
+
+### Dynamic Balance Tendency
+
+| Dominant Interaction | Code Personality |
+| --- | --- |
+| **WOOD ➔ EARTH** | **Pure Abstraction**: Focuses on defining high-level interfaces over raw data. |
+| **EARTH ➔ WATER** | **Data Concentration**: Optimized for dense information storage and literal values. |
+| **WATER ➔ FIRE** | **Contextual Clarity**: Prioritizes thorough documentation and human-readable explanation. |
+| **FIRE ➔ METAL** | **Logic Agility**: Prioritizes dynamic execution flow and complex algorithmic branching. |
+| **METAL ➔ WOOD** | **Architectural Integrity**: Focuses on robust type-safety and rigid system frameworks. |
+
 ## Palette
 
 ![Color Palette](./preview.png)
