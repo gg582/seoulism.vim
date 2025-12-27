@@ -58,14 +58,14 @@ function! s:RealTimeCheck() abort
     elseif l:stats['WOOD'] > (l:total * 0.3) | let l:profile = "Reference-rich (API/Functions)"
     endif
 
-    " 2. Detect Overcoming (Conflict)
+    " 2. Detect Overcoming 
     let l:conflict_msg = ""
     for [l:attacker, l:victim] in items(s:overcomes)
         let l:p_att = (l:stats[l:attacker] * 100.0) / l:total
         let l:p_vic = (l:stats[l:victim] * 100.0) / l:total
         if (l:p_att - l:p_vic) > g:seoulism_opp_threshold
             execute 'sign place 999 line=1 name=SeoulismSign buffer=' . bufnr('%')
-            let l:conflict_msg = printf(" | Conflict: %s > %s", l:attacker, l:victim)
+            let l:conflict_msg = printf(" | Overcome: %s > %s", l:attacker, l:victim)
             break
         endif
     endfor
