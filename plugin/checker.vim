@@ -1,23 +1,17 @@
 " =============================================================================
-" Seoulism Elemental Overcoming Checker
-" Author: Seoulism Project
-" Compatibility: Vim, Neovim
-" Description: Monitors Five Elements balance and marks conflicts with ☯ sign.
+" Seoulism Syntax Balance Checker
+" Description: Structural analysis based on Five Elements syntax mapping.
 " =============================================================================
 
 if exists('g:loaded_seoulism_checker') | finish | endif
 let g:loaded_seoulism_checker = 1
 
-" --- Configuration ---
-let g:seoulism_warn_opp = 1
-let g:seoulism_opp_threshold = 10.0
+let g:seoulism_threshold = 15.0
 
-" --- Visual Setup ---
 highlight SeoulismWarn ctermfg=Yellow guifg=Yellow
-" Define the Yin-Yang sign for the gutter
 sign define SeoulismSign text=☯ texthl=SeoulismWarn
 
-" --- Element Group Mapping ---
+" --- Syntax Mapping ---
 let s:elements = {
     \ 'WOOD':  ['Function', 'Identifier'],
     \ 'FIRE':  ['Statement', 'Conditional', 'Repeat', 'Exception'],
@@ -26,8 +20,7 @@ let s:elements = {
     \ 'WATER': ['Comment', 'Special', 'Delimiter']
     \ }
 
-" --- Overcoming Logic ---
-let s:conflicts = {
+let s:overcomes = {
     \ 'WOOD':  'EARTH',
     \ 'EARTH': 'WATER',
     \ 'WATER': 'FIRE',
@@ -35,72 +28,77 @@ let s:conflicts = {
     \ 'METAL': 'WOOD'
     \ }
 
-function! s:CheckBalance() abort
-    " Clear existing sign (ID 999) before re-checking
-    execute 'sign unplace 999 buffer=' . bufnr('%')
-    
-    if !g:seoulism_warn_opp | return | endif
-
+function! s:AnalyzeSyntax() abort
     let l:stats = {'WOOD': 0, 'FIRE': 0, 'EARTH': 0, 'METAL': 0, 'WATER': 0}
     let l:total = 0
-
-    " Scan visible lines for performance
-    let l:first = line('w0')
-    let l:last = line('w$')
-
-    for l:lnum in range(l:first, l:last)
-        let l:width = col([l:lnum, '$'])
-        " Sample every 10th character to prevent lag
-        for l:cnum in range(1, l:width, 10)
+    let l:lines = getline(1, '$')
+    
+    for l:lnum in range(1, len(l:lines))
+        let l:line_text = l:lines[l:lnum - 1]
+        let l:words = split(l:line_text, '\W\+')
+        for l:word in l:words
+            let l:cnum = stridx(l:line_text, l:word) + 1
             let l:hi_id = synID(l:lnum, l:cnum, 1)
             let l:hi_name = synIDattr(synIDtrans(l:hi_id), 'name')
             
             for [l:el, l:groups] in items(s:elements)
-                for l:group in l:groups
-                    if l:hi_name =~# l:group
-                        let l:stats[l:el] += 1
-                        let l:total += 1
-                        break
-                    endif
-                endfor
+                if index(l:groups, l:hi_name) >= 0
+                    let l:stats[l:el] += 1
+                    let l:total += 1
+                    break
+                endif
             endfor
         endfor
     endfor
+    return [l:stats, l:total]
+endfunction
 
+function! SeoulismCheck() abort
+    let [l:stats, l:total] = s:AnalyzeSyntax()
+    execute 'sign unplace 999 buffer=' . bufnr('%')
     if l:total == 0 | return | endif
 
-    " Calculate and detect overwhelming energy
-    for [l:attacker, l:victim] in items(s:conflicts)
-        let l:p_attacker = (l:stats[l:attacker] * 100.0) / l:total
-        let l:p_victim   = (l:stats[l:victim] * 100.0) / l:total
-        let l:diff = l:p_attacker - l:p_victim
-
-        if l:diff > g:seoulism_opp_threshold
+    for [l:attacker, l:victim] in items(s:overcomes)
+        let l:p_att = (l:stats[l:attacker] * 100.0) / l:total
+        let l:p_vic = (l:stats[l:victim] * 100.0) / l:total
+        if (l:p_att - l:p_vic) > g:seoulism_threshold
             execute 'sign place 999 line=1 name=SeoulismSign buffer=' . bufnr('%')
-            echohl WarningMsg
-            echo printf("[Seoulism] Tendency: %s overwhelms %s (%.1f%% diff)", l:attacker, l:victim, l:diff)
-            echohl None
+            echo "[Seoulism] Imbalance: " . l:attacker . " dominates " . l:victim
             return
         endif
     endfor
 endfunction
 
-" --- User Commands ---
-" :Opp (wopp) - Turn on checker
-command! Opp let g:seoulism_warn_opp = 1 | call s:CheckBalance()
-" :NoOpp (noopp) - Turn off checker
-command! NoOpp let g:seoulism_warn_opp = 0 | execute 'sign unplace 999 buffer=' . bufnr('%') | echo "[Seoulism] Disabled."
-" :WarnCfgOpp (warncfg) - Set threshold (%)
-command! -nargs=1 WarnCfgOpp let g:seoulism_opp_threshold = str2float(<q-args>) | call s:CheckBalance()
+function! SeoulismReport() abort
+    let [l:stats, l:total] = s:AnalyzeSyntax()
+    if l:total == 0 | echo "No syntax data found." | return | endif
 
-" Command abbreviations for convenience
-cnoreabbrev wopp Opp
-cnoreabbrev noopp NoOpp
-cnoreabbrev warncfg WarnCfgOpp
+    echo "--- Syntax Distribution Report ---"
+    for l:el in ['WOOD', 'FIRE', 'EARTH', 'METAL', 'WATER']
+        let l:p = (l:stats[l:el] * 100.0) / l:total
+        echo printf("%-6s: [%-20s] %.1f%%", l:el, repeat('#', float2nr(l:p / 5)), l:p)
+    endfor
+    echo "----------------------------------"
 
-" --- Autocommands ---
+    " --- Structural Characteristics Analysis ---
+    if l:stats['WATER'] > (l:total * 0.4)
+        echo "Analysis: Documentation-heavy structure (Header or Verbose Comments)."
+    elseif l:stats['FIRE'] > (l:total * 0.3)
+        echo "Analysis: Control-flow intensive (Logic or Algorithm implementation)."
+    elseif l:stats['EARTH'] > (l:total * 0.4)
+        echo "Analysis: Data-centric structure (Configuration or Constants file)."
+    elseif l:stats['METAL'] > (l:total * 0.3)
+        echo "Analysis: Definition-heavy structure (Header file or Type declarations)."
+    elseif l:stats['WOOD'] > (l:total * 0.3)
+        echo "Analysis: Identifier-rich structure (Reference-heavy or API-intensive)."
+    else
+        echo "Analysis: Balanced syntax distribution."
+    endif
+endfunction
+
+command! SeoulismStatus call SeoulismReport()
+
 augroup SeoulismChecker
     autocmd!
-    " Trigger check when saving or when cursor stops moving
-    autocmd BufWritePost,CursorHold * call s:CheckBalance()
+    autocmd BufWritePost * call SeoulismCheck()
 augroup END
