@@ -1,69 +1,107 @@
+````markdown
 # Seoulism
 
 A Vim and Neovim colorscheme inspired by Korean color tradition and modern Seoul light.
 
+![Preview](./preview.png)
+
+Seoulism translates Korean color sources into a clean dark UI palette with strong contrast—quiet enough for deep work, sharp enough for structure.
+
 Best with:
 
-* `set termguicolors`
+- `set termguicolors` (requires a truecolor-capable terminal)
+
+---
+
+## Quick Start
+
+### Vim / Neovim (after installing the plugin)
+
+```vim
+set termguicolors
+colorscheme seoulism
+````
+
+---
 
 ## A Korean palette, made readable
 
-Seoulism takes Korean color sources and translates them into a clean dark UI palette with strong contrast.
+Seoulism takes Korean color sources and translates them into a modern UI palette designed for clarity and hierarchy.
 
-### A Gentle Chain of Colors: Five Directional Color Modal
-**Eastern aesthetics are more than just a "Zen" cliché; they represent a centuries-old cognitive system.**
+### A Gentle Chain of Colors: Five Directional Color Model
 
-I have spent some time developing **Seoulism**, a Vim theme that approaches Eastern aesthetics from a systemic and structural perspective. My goal was to move away from purely mystical or exotic interpretations of the tradition.
+**Eastern aesthetics are more than a "Zen" cliché; they represent a centuries-old cognitive system.**
 
-While the "Five Directional Colors" (오방색, 五方色) originated in broader East Asian philosophy(by Zou Yan, especially China), its true value lies in how it was localized and reconfigured into a rigorous system of order within Korean culture. By stripping away the mystical layers, I found a profound structural and cognitive-scientific core. This theme is an exploration of that hidden logic. It showcases the systemic thinking inherent in the Korean intellectual tradition.
+I have spent time developing **Seoulism**, a Vim theme that approaches Eastern aesthetics from a systemic and structural perspective. The goal is to move away from purely mystical or exotic interpretations.
 
-**Beyond the "Zen" Cliché**
+While the "Five Directional Colors" (오방색, 五方色) originated in broader East Asian philosophy (commonly linked to Zou Yan and early Chinese cosmology), its real value lies in how it was localized and reconfigured into a rigorous system of order within Korean culture. By stripping away mystical layers, I focused on the structural core: color as a cognitive system for organizing hierarchy and meaning.
 
-This theme is not about oriental minimalism. It presents a five-axis cognitive system where colors are not decorative but functional tools for categorizing hierarchy and logic. It treats color as a refined algorithm for the modern developer’s mind.
+#### Beyond the "Zen" cliché
 
-**The Principle of "Scene First, Emotion Later" (선경후정, 先景後情)**
+This theme is not about "oriental minimalism." It treats color as functional UI logic: accents are not decoration, but tools for categorizing structure.
 
-This reflects a long-standing intellectual tradition. In this system, the code is treated as the "Scene," which is the functional reality, and it is rendered with absolute clarity. The comments, representing the "Emotion" or human annotation, are intentionally receded into the background. This hierarchy ensures that human sentiment never overshadows the structural truth of the code.
+#### The Principle of "Scene First, Emotion Later" (선경후정, 先景後情)
 
-**Pine Ink Black**
+In this hierarchy, code is the "Scene"—the functional reality—and is rendered with maximum clarity. Comments (human annotation) are intentionally receded so that sentiment never competes with structure.
 
-Contrary to China, Korean culture preferred Matt Black with pale blue hint.
-Those inks are demonstrated more than a thousand years ago, but this classic tone will still soften your canvas.
-This will gently embrace your own flow, without intercepting who you are.
+#### Pine Ink Black
 
-**A Living Spiritual Legacy**
+Korean visual preference often leans toward matte black with a faint blue cast rather than flat pure black. This tone softens the canvas while keeping edges crisp, designed to support flow without getting in your way.
 
-This systemic approach is not a dead relic of the past. It lives on in the minds of Koreans today, and it serves as the invisible foundation for the vibrant aesthetics of modern K-Culture and Engineering. Whether in the calculated choreography of a performance or the sophisticated visual language of a film, one can see this ancient logic of order and harmony at play.
+#### A living legacy
 
-If you find the neon-saturated contrast of contemporary themes too noisy for deep work, Seoulism offers a grounded and humanistic experience.
+This is not presented as a museum relic. The system lives on as an implicit logic of order—visible today in modern Korean visual culture and engineering sensibilities.
 
-### A Chain of Colors
+If neon-saturated themes feel too loud for long sessions, Seoulism aims to stay grounded, readable, and calm.
+
+---
+
+## A Chain of Colors
+
 ![Visualizer](./visualizer.png)
 ![Pentagon](./pentagon_cycle.png)
-This diagram illustrates the cognitive transformation from ancestral elemental anchors to modern UI tokens.
 
-### What inspired the colors
+These diagrams illustrate the cognitive transformation from ancestral elemental anchors to modern UI tokens.
 
-- The traditional Korean five-color system  
-  A classic framework built around five symbolic colors: blue, red, yellow, white, and black.  
-  Seoulism uses this as a guide for balanced accents and clear visual hierarchy.
+---
 
-- Indigo dyeing  
-  Deep blues shaped by the look of dyed fabric rather than flat digital blue.
+## What inspired the colors
 
-- Metallic pigments  
-  Bold highlights inspired by mineral and metal-like pigments seen in traditional decorative work.
+* **Traditional Korean five-color system (오방색)**
+  A framework around five symbolic colors: blue, red, yellow, white, and black.
+  Seoulism uses this as a guide for balanced accents and clear hierarchy.
 
-- Safflower red dye  
-  Reds tuned to feel warm and vivid, closer to natural dye than “error-only” red.
-- Pine Ash Black
-  Matt Black tuned to glitter with blue hint.
-- Reflective Selection
-  When text is selected, it turns into a bright reflective white, simulating a spotlight on a paper-like canvas.
+* **Indigo dyeing**
+  Deep blues shaped by fabric dye texture rather than flat digital blue.
+
+* **Metallic pigments**
+  Highlights inspired by mineral/metal-like pigments seen in traditional decorative work.
+
+* **Safflower red dye**
+  Reds tuned to feel warm and vivid—more like natural dye than “error-only” red.
+
+* **Pine ash black**
+  Matte black tuned with a subtle blue glint.
+
+* **Reflective selection**
+  Visual selection turns into a bright reflective white, like a spotlight on a paper-like canvas.
+
+---
 
 ## Install
 
-### Vundle
+### Vim-plug (Vim / Neovim)
+
+```vim
+call plug#begin()
+Plug 'gg582/seoulism.vim'
+call plug#end()
+
+set termguicolors
+colorscheme seoulism
+```
+
+### Vundle (Vim)
 
 ```vim
 set nocompatible
@@ -79,11 +117,24 @@ filetype plugin indent on
 
 set termguicolors
 colorscheme seoulism
-````
+```
 
-Run:
+Then run:
 
 * `:PluginInstall`
+
+### Native package install (Vim 8+)
+
+```sh
+git clone https://github.com/gg582/seoulism.vim.git ~/.vim/pack/seoulism/start/seoulism
+```
+
+Then in your vimrc:
+
+```vim
+set termguicolors
+colorscheme seoulism
+```
 
 ### Manual
 
@@ -95,36 +146,77 @@ set termguicolors
 colorscheme seoulism
 ```
 
+---
+
 ## Code Tendency Checker
-```vimscript
-:wopp  " turn on the tendency checker
-:noopp " turn off the tendency checker
-:warncfg <integer (0-100)> " set the sensitivity within percentage
+
+Seoulism provides an optional "tendency checker" inspired by the five-color system.
+It reads your code as a structural mix and reports a dominant tendency profile.
+
+### Commands
+
+```vim
+:wopp                 " turn on the tendency checker
+:noopp                " turn off the tendency checker
+:warncfg <0-100>      " set the sensitivity (percent)
 ```
+
+### How `:warncfg` works
+
+* `:warncfg {0-100}` sets the minimum strength (in percent) required for a tendency to be reported.
+* **Higher values suppress more output** (stricter filter; less sensitive).
+* **Lower values show more output** (looser filter; more sensitive).
+* If your file mixes multiple roles heavily, weaker signals may be filtered out depending on this setting.
+
+A practical starting point:
+
+* `:warncfg 10`  show more (loose)
+* `:warncfg 30`  balanced
+* `:warncfg 60`  show less (strict)
+
+---
 
 ### Code Tendency Mapping
 
-| Dominance | Core Tendency | Structural Context |
-| --- | --- | --- |
-| **WOOD** (Jade) | **Declarative Birth** | **Header Files**, Interface contracts, Function prototypes, and API definitions. |
-| **FIRE** (Red) | **Operational Heat** | **Control Flow**, Main logic loops, Exception handling, and Dynamic execution. |
-| **EARTH** (Gold) | **Stable Root** | **Config Tables**, Constant mappings, Hardcoded literals, and Resource datasets. |
-| **METAL** (Base) | **Structural Rigidity** | **Type Definitions**, Static schemas, System boilerplate, and Memory allocations. |
-| **WATER** (Void) | **Implicit Space** | **Documentation Blocks**, Extensive comments, Code delimiters, and Meta-data. |
+| Dominance        | Core Tendency           | Structural Context                                                               |
+| ---------------- | ----------------------- | -------------------------------------------------------------------------------- |
+| **WOOD** (Jade)  | **Declarative Birth**   | **Header files**, interface contracts, function prototypes, and API definitions  |
+| **FIRE** (Red)   | **Operational Heat**    | **Control flow**, main loops, exception handling, and dynamic execution          |
+| **EARTH** (Gold) | **Stable Root**         | **Config tables**, constant mappings, hardcoded literals, and resource datasets  |
+| **METAL** (Base) | **Structural Rigidity** | **Type definitions**, static schemas, system boilerplate, and memory allocations |
+| **WATER** (Void) | **Implicit Space**      | **Documentation blocks**, extensive comments, delimiters, and metadata           |
 
 ---
 
 ### Dynamic Balance Tendency
 
-| Dominant Interaction | Code Personality |
-| --- | --- |
-| **WOOD ➔ EARTH** | **Pure Abstraction**: Focuses on defining high-level interfaces over raw data. |
-| **EARTH ➔ WATER** | **Data Concentration**: Optimized for dense information storage and literal values. |
-| **WATER ➔ FIRE** | **Contextual Clarity**: Prioritizes thorough documentation and human-readable explanation. |
-| **FIRE ➔ METAL** | **Logic Agility**: Prioritizes dynamic execution flow and complex algorithmic branching. |
-| **METAL ➔ WOOD** | **Architectural Integrity**: Focuses on robust type-safety and rigid system frameworks. |
+| Dominant Interaction | Code Personality                                                                 |
+| -------------------- | -------------------------------------------------------------------------------- |
+| **WOOD ➔ EARTH**     | **Pure Abstraction**: Focuses on defining high-level interfaces over raw data    |
+| **EARTH ➔ WATER**    | **Data Concentration**: Optimized for dense storage and literal-heavy structure  |
+| **WATER ➔ FIRE**     | **Contextual Clarity**: Prioritizes documentation and human-readable explanation |
+| **FIRE ➔ METAL**     | **Logic Agility**: Prioritizes branching execution and dynamic algorithmic flow  |
+| **METAL ➔ WOOD**     | **Architectural Integrity**: Focuses on type safety and rigid system boundaries  |
+
+---
 
 ## Palette
 
 ![Color Palette](./preview.png)
 ![Code Example](./code_example.png)
+
+---
+
+## Notes
+
+* A truecolor terminal is strongly recommended.
+* If your terminal does not support truecolor, the palette may flatten and reduce contrast.
+
+---
+
+## License
+
+See `LICENSE` (or the repository license file).
+
+```
+```
