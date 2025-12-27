@@ -15,7 +15,7 @@ let s:palette.bg_faint = '#070709'
 let s:palette.bg_intense = '#242630'
 let s:palette.c0 = '#464e56'
 let s:palette.c0_f = '#373c44'
-let s:palette.c0_i = '#6f747b'
+let s:palette.c0_i = '#80858c'
 let s:palette.c1 = '#ea3c36'
 let s:palette.c1_f = '#b43730'
 let s:palette.c1_i = '#f06f67'
@@ -61,7 +61,7 @@ endif
 
 call s:hi('Normal', '#ecece9', '#101114', '255', '233', 'NONE')
 call s:hi('NormalNC', '#bebeba', '#101114', '250', '233', 'NONE')
-call s:hi('Comment', '#6f747b', 'NONE', '243', 'NONE', 'italic')
+call s:hi('Comment', '#80858c', 'NONE', '243', 'NONE', 'italic')
 call s:hi('Constant', '#688dee', 'NONE', '69', 'NONE', 'NONE')
 call s:hi('String', '#f6c940', 'NONE', '221', 'NONE', 'NONE')
 call s:hi('Character', '#ffde78', 'NONE', '222', 'NONE', 'NONE')
@@ -90,7 +90,7 @@ call s:hi('Special', '#2aa394', 'NONE', '36', 'NONE', 'NONE')
 call s:hi('SpecialChar', '#ffde78', 'NONE', '222', 'NONE', 'NONE')
 call s:hi('Tag', '#688dee', 'NONE', '69', 'NONE', 'NONE')
 call s:hi('Delimiter', '#464e56', 'NONE', '239', 'NONE', 'NONE')
-call s:hi('SpecialComment', '#6f747b', 'NONE', '243', 'NONE', 'italic')
+call s:hi('SpecialComment', '#80858c', 'NONE', '243', 'NONE', 'italic')
 call s:hi('Debug', '#c582ed', 'NONE', '177', 'NONE', 'NONE')
 call s:hi('Underlined', '#688dee', 'NONE', '69', 'NONE', 'underline')
 call s:hi('Ignore', '#464e56', 'NONE', '239', 'NONE', 'NONE')
@@ -103,7 +103,7 @@ call s:hi('LineNr', '#464e56', '#101114', '239', '233', 'NONE')
 call s:hi('CursorLineNr', '#ffde78', '#242630', '222', '235', 'bold')
 call s:hi('SignColumn', '#464e56', '#101114', '239', '233', 'NONE')
 call s:hi('FoldColumn', '#464e56', '#101114', '239', '233', 'NONE')
-call s:hi('Folded', '#6f747b', '#242630', '243', '235', 'NONE')
+call s:hi('Folded', '#80858c', '#242630', '243', '235', 'NONE')
 call s:hi('VertSplit', '#242630', '#101114', '235', '233', 'NONE')
 call s:hi('WinSeparator', '#242630', '#101114', '235', '233', 'NONE')
 call s:hi('StatusLine', '#ecece9', '#242630', '255', '235', 'bold')
@@ -148,6 +148,19 @@ call s:hi('DiagnosticUnderlineError', 'NONE', 'NONE', 'NONE', 'NONE', 'undercurl
 call s:hi('DiagnosticUnderlineWarn', 'NONE', 'NONE', 'NONE', 'NONE', 'undercurl')
 call s:hi('DiagnosticUnderlineInfo', 'NONE', 'NONE', 'NONE', 'NONE', 'undercurl')
 call s:hi('DiagnosticUnderlineHint', 'NONE', 'NONE', 'NONE', 'NONE', 'undercurl')
+
+" Define a dedicated group for function definition keywords using c6 (Jade)
+call s:hi('FuncKey', '#2aa394', 'NONE', '36', 'NONE', 'bold')
+
+" Universal link for Vim's legacy syntax (handles 'function', 'def', etc.)
+hi! link StorageClass FuncKey
+hi! link Structure FuncKey
+
+" Specific override for Neovim Treesitter to isolate function keywords from other purple keywords
+if has('nvim')
+    silent! hi! link @keyword.function FuncKey
+    silent! hi! link @keyword.method FuncKey
+endif
 
 " Treesitter links:
 silent! hi! link @comment Comment
