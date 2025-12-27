@@ -201,7 +201,6 @@ A practical starting point:
 
 ## Palette
 
-![Color Palette](./preview.png)
 ![Code Example](./code_example.png)
 
 ---
