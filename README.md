@@ -176,6 +176,23 @@ A practical starting point:
 * `:warncfg 30`  balanced
 * `:warncfg 60`  show less (strict)
 
+### Risk notice & checkpoint markers
+
+When the difference between the dominant and the suppressed element exceeds `g:seoulism_risk_gap` (40% by default) the checker now:
+
+* Prints an English notice describing the trend that triggered the risky window.
+* Searches for the hottest checkpoint window (size controlled by `g:seoulism_checkpoint_span`) and marks that line range with an `s` sign in the gutter for quick scanning.
+
+You can tune this behavior in your `vimrc`:
+
+```vim
+let g:seoulism_risk_gap = 40.0          " adjust when the notice appears
+let g:seoulism_checkpoint_span = 24     " number of lines inspected per checkpoint window
+let g:seoulism_checkpoint_sign = 's'    " marker text used in the sign column
+```
+
+When the notice triggers you'll also see a range hint such as `Checkpoint 42-60 marked (s)` in the message so you can jump directly to the conflicted block.
+
 ---
 
 ### Code Tendency Mapping
