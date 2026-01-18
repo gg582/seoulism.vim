@@ -247,4 +247,5 @@ cnoreabbrev warncfg WarnCfg
 augroup SeoulismRealTime
     autocmd!
     autocmd CursorHold,CursorHoldI,BufWritePost * call s:RealTimeCheck()
+    autocmd ColorScheme seoulism unlet! g:loaded_seoulism_intense_checker
 augroup END
