@@ -8,7 +8,7 @@ if exists('g:loaded_seoulism_checker') | finish | endif
 let g:loaded_seoulism_checker = 1
 
 " --- Configuration ---
-if !exists('g:seoulism_warn_opp') | let g:seoulism_warn_opp = 1 | endif
+if !exists('g:seoulism_warn_opp') | let g:seoulism_warn_opp = 0 | endif
 " Higher threshold reduces false positives from structural noise.
 if !exists('g:seoulism_opp_threshold') | let g:seoulism_opp_threshold = 25.0 | endif
 " Gap that is treated as risky and triggers detailed notice/markers.
