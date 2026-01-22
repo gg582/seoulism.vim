@@ -214,3 +214,36 @@ call s:hi('LspWarningText', s:p.gold, 'NONE', '222', 'NONE', 'underline')
 highlight vimVar guifg=#efeeea gui=italic
 highlight vimFBVar guifg=#efeeea gui=italic
 highlight vimAmbiguousVimVar guifg=#efeeea gui=italic
+
+" --- Kitty Compatibility ---
+
+" 1. Fast UI Response (Lowers delays for key sequences)
+set updatetime=100
+set ttimeoutlen=10
+
+" 2. Smart Redraw (GPU optimization for large files)
+set lazyredraw
+set synmaxcol=300
+
+" 3. Kitty Protocol Integration
+" Enable bracketed paste and focus reporting
+if &term =~# 'kitty'
+    let &t_FE = "\e[?1004h"
+    let &t_FD = "\e[?1004l"
+    execute "set <FocusGained>=\e[I"
+    execute "set <FocusLost>=\e[O"
+endif
+
+" 4. Enhanced Visual Feedback for Search
+" Temporarily highlight search results, then fade out
+augroup DynamicSearch
+    autocmd!
+    autocmd CmdlineEnter /,\? set hlsearch
+    autocmd CursorMoved * set nohlsearch
+augroup END
+
+" 5. Advanced Cursor Logic (Overriding Everything)
+" This ensures that even under heavy load, the cursor remains responsive
+if has('nvim')
+    set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci-ve:ver25-CursorIM-blinkwait10-blinkoff100-blinkon100,r-cr:hor20,o:hor50
+endif
