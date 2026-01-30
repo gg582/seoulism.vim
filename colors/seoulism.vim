@@ -8,6 +8,10 @@ endif
 let g:colors_name = 'seoulism'
 set background=dark
 
+" Configuration
+let g:seoulism_rigorous = get(g:, 'seoulism_rigorous', 0)
+let g:seoulism_italic = get(g:, 'seoulism_italic', 1)
+
 " =============================================================================
 " Palette
 " =============================================================================
@@ -31,6 +35,8 @@ let s:p.charcoal     = '#5f6770'
 let s:p.gold         = '#f0d487'
 let s:p.sky          = '#6f8ee6'
 
+let s:italic = g:seoulism_italic ? 'italic' : 'NONE'
+
 function! s:hi(group, guifg, guibg, ctermfg, ctermbg, attr) abort
   execute 'hi' a:group
         \ 'gui=' . a:attr . ' cterm=' . a:attr
@@ -43,7 +49,7 @@ endfunction
 " =============================================================================
 call s:hi('Normal', s:p.fg, s:p.bg, '255', '233', 'NONE')
 call s:hi('NormalNC', s:p.fg_sub, s:p.bg, '250', '233', 'NONE')
-call s:hi('Comment', s:p.muted_blue, 'NONE', '103', 'NONE', 'italic')
+call s:hi('Comment', s:p.muted_blue, 'NONE', '103', 'NONE', s:italic)
 call s:hi('Constant', s:p.sky, 'NONE', '69', 'NONE', 'NONE')
 call s:hi('String', s:p.ochre, 'NONE', '221', 'NONE', 'NONE')
 call s:hi('Character', s:p.gold, 'NONE', '222', 'NONE', 'NONE')
@@ -66,10 +72,10 @@ call s:hi('Include', s:p.sky, 'NONE', '69', 'NONE', 'NONE')
 call s:hi('Define', s:p.sky, 'NONE', '69', 'NONE', 'NONE')
 call s:hi('Macro', s:p.sky, 'NONE', '69', 'NONE', 'NONE')
 call s:hi('PreCondit', s:p.sky, 'NONE', '69', 'NONE', 'NONE')
-call s:hi('Type', s:p.fg_bright, 'NONE', '231', 'NONE', 'italic')
-call s:hi('StorageClass', s:p.fg_bright, 'NONE', '231', 'NONE', 'italic')
-call s:hi('Structure', s:p.fg_bright, 'NONE', '231', 'NONE', 'italic')
-call s:hi('Typedef', s:p.fg_bright, 'NONE', '231', 'NONE', 'italic')
+call s:hi('Type', s:p.fg_bright, 'NONE', '231', 'NONE', s:italic)
+call s:hi('StorageClass', s:p.fg_bright, 'NONE', '231', 'NONE', s:italic)
+call s:hi('Structure', s:p.fg_bright, 'NONE', '231', 'NONE', s:italic)
+call s:hi('Typedef', s:p.fg_bright, 'NONE', '231', 'NONE', s:italic)
 call s:hi('Special', s:p.jade, 'NONE', '36', 'NONE', 'NONE')
 call s:hi('Delimiter', s:p.charcoal, 'NONE', '239', 'NONE', 'NONE')
 call s:hi('Underlined', 'NONE', 'NONE', 'NONE', 'NONE', 'underline')
@@ -95,7 +101,7 @@ call s:hi('Visual', 'NONE', s:p.bg_sel, 'NONE', '25', 'NONE')
 call s:hi('Search', s:p.bg, '#b29245', '233', '137', 'bold')
 call s:hi('IncSearch', s:p.bg, s:p.ochre, '233', '221', 'NONE')
 call s:hi('NonText', s:p.charcoal, 'NONE', '239', 'NONE', 'NONE')
-call s:hi('Folded', s:p.muted_blue, s:p.bg_alt, '103', '234', 'italic')
+call s:hi('Folded', s:p.muted_blue, s:p.bg_alt, '103', '234', s:italic)
 call s:hi('FoldColumn', s:p.charcoal, s:p.bg, '239', '233', 'NONE')
 call s:hi('ColorColumn', 'NONE', s:p.bg_alt, 'NONE', '234', 'NONE')
 call s:hi('MatchParen', s:p.fg_bright, s:p.charcoal, '231', '239', 'bold')
@@ -123,11 +129,12 @@ call s:hi('DiffDelete', s:p.bg, s:p.vermilion, '233', '167', 'NONE')
 call s:hi('DiffText', s:p.bg, s:p.ochre, '233', '221', 'bold')
 
 " =============================================================================
-" Forced Highlighting Logic
+" Rigorous Mode (Opt-in Habit Enforcement)
 " =============================================================================
 call s:hi('FuncKey', s:p.jade, 'NONE', '36', 'NONE', 'bold')
 
 function! s:ForceSeoulismTypes() abort
+  if !g:seoulism_rigorous | return | endif
   if exists('w:seoulism_type_matches')
     for l:match_id in w:seoulism_type_matches
       silent! call matchdelete(l:match_id)
@@ -140,14 +147,25 @@ function! s:ForceSeoulismTypes() abort
 endfunction
 
 function! s:ForceSeoulismJade() abort
+  if !g:seoulism_rigorous | return | endif
   if exists('w:seoulism_jade_match')
     silent! call matchdelete(w:seoulism_jade_match)
   endif
   let w:seoulism_jade_match = matchadd('FuncKey', '\<func\>\|\<\w\+\>\s\+\zs\w\+\ze\s*(')
 endfunction
 
+if g:seoulism_rigorous
+  augroup SeoulismRigorous
+    autocmd!
+    autocmd FileType c,cpp,go,rust,java,python,typescript call s:ForceSeoulismTypes()
+    autocmd BufEnter,WinEnter * if &filetype =~# 'c\|cpp\|go\|rust\|java\|python\|typescript' | call s:ForceSeoulismTypes() | endif
+    autocmd BufEnter,WinEnter,Syntax go,c,cpp,rust,python call s:ForceSeoulismJade()
+  augroup END
+  call s:ForceSeoulismTypes()
+endif
+
 " =============================================================================
-" Integration & Events
+" Integrations
 " =============================================================================
 if has('nvim')
   hi! link @keyword Keyword
@@ -164,17 +182,7 @@ if has('nvim')
   hi! link @lsp.type.enum Type
   hi! link @lsp.type.typedef Type
   hi! link @lsp.type.class Type
-endif
 
-augroup Seoulism
-  autocmd!
-  autocmd FileType c,cpp,go,rust,java,python,typescript call s:ForceSeoulismTypes()
-  autocmd BufEnter,WinEnter * if &filetype =~# 'c\|cpp\|go\|rust\|java\|python\|typescript' | call s:ForceSeoulismTypes() | endif
-  autocmd BufEnter,WinEnter,Syntax go,c,cpp,rust,python call s:hi('FuncKey', s:p.jade, 'NONE', '36', 'NONE', 'bold') | call s:ForceSeoulismJade()
-augroup END
-
-" Terminal colors
-if has('nvim')
   let g:terminal_color_0 = s:p.bg
   let g:terminal_color_1 = s:p.vermilion
   let g:terminal_color_2 = s:p.emerald
@@ -187,63 +195,14 @@ if has('nvim')
   let g:terminal_color_9 = '#e77e79'
 endif
 
-call s:ForceSeoulismTypes()
-
-" =============================================================================
-" Semantic & Language Server Protocol Groups
-" =============================================================================
-" Variable Scopes (Wood/Jade logic)
+" LSP Semantic Token Groups
 call s:hi('LspVariable', s:p.fg, 'NONE', '255', 'NONE', 'NONE')
-call s:hi('LspParameter', '#6bc0b6', 'NONE', '73', 'NONE', 'italic')
-
-" Logic flow in LSP (Fire/Vermilion logic)
+call s:hi('LspParameter', '#6bc0b6', 'NONE', '73', 'NONE', s:italic)
 call s:hi('LspKeyword', s:p.vermilion, 'NONE', '167', 'NONE', 'bold')
 call s:hi('LspControlFlow', s:p.vermilion, 'NONE', '167', 'NONE', 'bold')
-
-" Static & Constants (Earth/Ochre logic)
 call s:hi('LspStaticVariable', s:p.ochre, 'NONE', '221', 'NONE', 'bold')
 call s:hi('LspEnumMember', s:p.ochre, 'NONE', '221', 'NONE', 'NONE')
-
-" Types & Interfaces (Metal/White logic)
 call s:hi('LspInterface', s:p.fg_bright, 'NONE', '231', 'NONE', 'bold')
-call s:hi('LspStruct', s:p.fg_bright, 'NONE', '231', 'NONE', 'italic')
-
-" Errors & Hints (Sharp Diagnostics)
+call s:hi('LspStruct', s:p.fg_bright, 'NONE', '231', 'NONE', s:italic)
 call s:hi('LspErrorText', '#e77e79', 'NONE', '203', 'NONE', 'underline')
 call s:hi('LspWarningText', s:p.gold, 'NONE', '222', 'NONE', 'underline')
-highlight vimVar guifg=#efeeea gui=italic
-highlight vimFBVar guifg=#efeeea gui=italic
-highlight vimAmbiguousVimVar guifg=#efeeea gui=italic
-
-" --- Kitty Compatibility ---
-
-" 1. Fast UI Response (Lowers delays for key sequences)
-set updatetime=100
-set ttimeoutlen=10
-
-" 2. Smart Redraw (GPU optimization for large files)
-set lazyredraw
-set synmaxcol=300
-
-" 3. Kitty Protocol Integration
-" Enable bracketed paste and focus reporting
-if &term =~# 'kitty'
-    let &t_FE = "\e[?1004h"
-    let &t_FD = "\e[?1004l"
-    execute "set <FocusGained>=\e[I"
-    execute "set <FocusLost>=\e[O"
-endif
-
-" 4. Enhanced Visual Feedback for Search
-" Temporarily highlight search results, then fade out
-augroup DynamicSearch
-    autocmd!
-    autocmd CmdlineEnter /,\? set hlsearch
-    autocmd CursorMoved * set nohlsearch
-augroup END
-
-" 5. Advanced Cursor Logic (Overriding Everything)
-" This ensures that even under heavy load, the cursor remains responsive
-if has('nvim')
-    set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci-ve:ver25-CursorIM-blinkwait10-blinkoff100-blinkon100,r-cr:hor20,o:hor50
-endif

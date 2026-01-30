@@ -6,19 +6,32 @@ A Vim and Neovim colorscheme inspired by Korean color tradition and modern Seoul
 
 Seoulism translates Korean color sources into a clean dark UI palette with strong contrast. Quiet enough for deep work, sharp enough for structure.
 
-Best with:
-
-- `set termguicolors` (requires a truecolor-capable terminal)
-
 ---
 
 ## Quick Start
 
-### Vim / Neovim (after installing the plugin)
+### Vim / Neovim
 
 ```vim
+" In your init.vim or .vimrc
 set termguicolors
 colorscheme seoulism
+```
+
+### Configuration (Optional)
+
+By default, Seoulism is a clean, standard colorscheme. You can enable optional "Habit Enforcement" or "Structural Analysis" features.
+
+```vim
+" Enable 'Rigorous Mode' (Enforces strict color rules for Types and Functions)
+" This uses matchadd() to highlight patterns that standard syntax files might miss.
+let g:seoulism_rigorous = 1
+
+" Enable 'Structural Balance Checker' (The optional plugin features)
+let g:seoulism_enable_checker = 1
+
+" Toggle italics for comments and types (Default: 1)
+let g:seoulism_italic = 0
 ```
 
 ---
@@ -47,45 +60,34 @@ In this hierarchy, code is the "Scene"--the functional reality--and is rendered 
 
 Korean visual preference often leans toward matte black with a faint blue cast rather than flat pure black. This tone softens the canvas while keeping edges crisp, designed to support flow without getting in your way.
 
-#### A living legacy
-
-This is not presented as a museum relic. The system lives on as an implicit logic of order--visible today in modern Korean visual culture and engineering sensibilities.
-
-If neon-saturated themes feel too loud for long sessions, Seoulism aims to stay grounded, readable, and calm.
-
 ---
 
-## A Chain of Colors
+## Code Tendency Checker (Optional)
 
-![Visualizer](./visualizer.png)
-![Pentagon](./pentagon_cycle.png)
+To use the structural checker, you must first enable it in your configuration:
 
-These diagrams illustrate the cognitive transformation from ancestral elemental anchors to modern UI tokens.
-Basic structure is a mixture between Asian astronomy and Asian color system.
+```vim
+let g:seoulism_enable_checker = 1
+```
 
----
+Seoulism provides an optional "tendency checker" inspired by the five-color system. It reads your code as a structural mix and reports a dominant tendency profile.
 
-## What inspired the colors
+### Commands
 
-* **Traditional Korean five-color system (오방색)**
-  A framework around five symbolic colors: blue, red, yellow, white, and black.
-  Seoulism uses this as a guide for balanced accents and clear hierarchy.
-  *To Chinese people: Although it was originated from China, we have our own adaptation of colors.*
+```vim
+:Opp                  " Turn on real-time tendency checking (alias: :wopp)
+:NoOpp                " Turn off tendency checking (alias: :noopp)
+```
 
-* **Indigo dyeing**
-  Deep blues shaped by fabric dye texture rather than flat digital blue.
+### Risk notice & checkpoint markers
 
-* **Metallic pigments**
-  Highlights inspired by mineral/metal-like pigments seen in traditional decorative work.
+When the difference between the dominant and the suppressed element exceeds `g:seoulism_risk_gap` (40% by default), the checker marks the problematic line range with an `s` sign in the gutter.
 
-* **Safflower red dye**
-  Reds tuned to feel warm and vivid--more like natural dye than "error-only" red.
-
-* **Pine ash black**
-  Matte black tuned with a subtle blue glint.
-
-* **Reflective selection**
-  Visual selection turns into a bright reflective white, like a spotlight on a paper-like canvas.
+```vim
+let g:seoulism_warn_opp = 1             " Auto-start checking on load
+let g:seoulism_risk_gap = 40.0          " Adjust when the notice appears
+let g:seoulism_checkpoint_span = 24     " Lines per checkpoint window
+```
 
 ---
 
@@ -102,136 +104,21 @@ set termguicolors
 colorscheme seoulism
 ```
 
-### Vundle (Vim)
-
-```vim
-set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'gg582/seoulism.vim'
-
-call vundle#end()
-filetype plugin indent on
-
-set termguicolors
-colorscheme seoulism
-```
-
-Then run:
-
-* `:PluginInstall`
-
 ### Native package install (Vim 8+)
 
 ```sh
 git clone https://github.com/gg582/seoulism.vim.git ~/.vim/pack/seoulism/start/seoulism
 ```
 
-Then in your vimrc:
-
-```vim
-set termguicolors
-colorscheme seoulism
-```
-
-### Manual
-
-* Vim: `~/.vim/colors/seoulism.vim`
-* Neovim: `~/.config/nvim/colors/seoulism.vim`
-
-```vim
-set termguicolors
-colorscheme seoulism
-```
-
----
-
-## Code Tendency Checker
-
-Seoulism provides an optional "tendency checker" inspired by the five-color system.
-It reads your code as a structural mix and reports a dominant tendency profile.
-
-### Commands
-
-```vim
-:wopp                 " turn on the tendency checker
-" let g:seoulism_warn_opp = 0 to disable auto-check
-:noopp                " turn off the tendency checker
-:warncfg <0-100>      " set the sensitivity (percent)
-```
-
-### How `:warncfg` works
-
-* `:warncfg {0-100}` sets the minimum strength (in percent) required for a tendency to be reported.
-* **Higher values suppress more output** (stricter filter; less sensitive).
-* **Lower values show more output** (looser filter; more sensitive).
-* If your file mixes multiple roles heavily, weaker signals may be filtered out depending on this setting.
-
-A practical starting point:
-
-* `:warncfg 10`  show more (loose)
-* `:warncfg 30`  balanced
-* `:warncfg 60`  show less (strict)
-
-### Risk notice & checkpoint markers
-
-When the difference between the dominant and the suppressed element exceeds `g:seoulism_risk_gap` (40% by default) the checker now:
-
-* Prints an English notice describing the trend that triggered the risky window.
-* Searches for the hottest checkpoint window (size controlled by `g:seoulism_checkpoint_span`) and marks that line range with an `s` sign in the gutter for quick scanning.
-
-You can tune this behavior in your `vimrc`:
-
-```vim
-let g:seoulism_risk_gap = 40.0          " adjust when the notice appears
-let g:seoulism_checkpoint_span = 24     " number of lines inspected per checkpoint window
-let g:seoulism_checkpoint_sign = 's'    " marker text used in the sign column
-```
-
-When the notice triggers you'll also see a range hint such as `Checkpoint 42-60 marked (s)` in the message so you can jump directly to the conflicted block.
-
----
-
-### Code Tendency Mapping
-
-| Dominance        | Core Tendency           | Structural Context                                                               |
-| ---------------- | ----------------------- | -------------------------------------------------------------------------------- |
-| **WOOD** (Jade)  | **Declarative Birth**   | **Header files**, interface contracts, function prototypes, and API definitions  |
-| **FIRE** (Red)   | **Operational Heat**    | **Control flow**, main loops, exception handling, and dynamic execution          |
-| **EARTH** (Gold) | **Stable Root**         | **Config tables**, constant mappings, hardcoded literals, and resource datasets  |
-| **METAL** (Base) | **Structural Rigidity** | **Type definitions**, static schemas, system boilerplate, and memory allocations |
-| **WATER** (Void) | **Implicit Space**      | **Documentation blocks**, extensive comments, delimiters, and metadata           |
-
----
-
-### Dynamic Balance Tendency
-
-| Dominant Interaction | Code Personality                                                                 |
-| -------------------- | -------------------------------------------------------------------------------- |
-| **WOOD ➔ EARTH**     | **Pure Abstraction**: Focuses on defining high-level interfaces over raw data    |
-| **EARTH ➔ WATER**    | **Data Concentration**: Optimized for dense storage and literal-heavy structure  |
-| **WATER ➔ FIRE**     | **Contextual Clarity**: Prioritizes documentation and human-readable explanation |
-| **FIRE ➔ METAL**     | **Logic Agility**: Prioritizes branching execution and dynamic algorithmic flow  |
-| **METAL ➔ WOOD**     | **Architectural Integrity**: Focuses on type safety and rigid system boundaries  |
-
----
-
-## Palette
-
-![Code Example](./code_example.png)
-
 ---
 
 ## Notes
 
-* A truecolor terminal is strongly recommended.
-* If your terminal does not support truecolor, the palette may flatten and reduce contrast.
+* A truecolor terminal is strongly recommended (`set termguicolors`).
+* If your terminal does not support truecolor, the palette may flatten.
 
 ---
 
 ## License
 
-See `LICENSE` (or the repository license file).
+See `LICENSE`.

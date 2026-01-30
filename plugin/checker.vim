@@ -1,29 +1,25 @@
 " =============================================================================
-" Seoulism Structural Balance Checker (Optimized for Clarity)
+" Seoulism Structural Balance Checker (Opt-in)
 " =============================================================================
-" This script analyzes code structure based on the 'Five Directional Colors'
-" and 'Scene First, Emotion Later' philosophy of the Seoulism theme.
+" This script analyzes code structure based on the Seoulism philosophy.
+" Enable it with: let g:seoulism_enable_checker = 1
 
 if exists('g:loaded_seoulism_checker') | finish | endif
 let g:loaded_seoulism_checker = 1
 
+" Master Switch: Default to OFF for 'Star-first' compatibility
+if !get(g:, 'seoulism_enable_checker', 0)
+    finish
+endif
+
 " --- Configuration ---
 if !exists('g:seoulism_warn_opp') | let g:seoulism_warn_opp = 0 | endif
-" Higher threshold reduces false positives from structural noise.
 if !exists('g:seoulism_opp_threshold') | let g:seoulism_opp_threshold = 25.0 | endif
-" Gap that is treated as risky and triggers detailed notice/markers.
 if !exists('g:seoulism_risk_gap') | let g:seoulism_risk_gap = 40.0 | endif
-" How many lines are grouped when searching for the hottest checkpoint.
 if !exists('g:seoulism_checkpoint_span') | let g:seoulism_checkpoint_span = 24 | endif
-" Marker text used when the risky checkpoint window is highlighted.
 if !exists('g:seoulism_checkpoint_sign') | let g:seoulism_checkpoint_sign = 's' | endif
-
-" --- Sampling Settings ---
-" Reduced step size to capture short keywords (if/for) more accurately.
 if !exists('g:seoulism_sample_step') | let g:seoulism_sample_step = 2 | endif
 if !exists('g:seoulism_sign_text') | let g:seoulism_sign_text = '◆' | endif
-
-" --- Scope Mapping ---
 if !exists('g:seoulism_scope') | let g:seoulism_scope = 'context' | endif
 if !exists('g:seoulism_context_lines') | let g:seoulism_context_lines = 80 | endif
 
@@ -31,8 +27,6 @@ highlight SeoulismWarn ctermfg=180 guifg=#e5c15a
 execute 'sign define SeoulismSign text=' . g:seoulism_sign_text . ' texthl=SeoulismWarn'
 execute 'sign define SeoulismConflict text=' . g:seoulism_checkpoint_sign . ' texthl=SeoulismWarn'
 
-" Elements categorized by Wu Xing (Five Elements) logic
-" Note: Delimiters are excluded from META to prevent skewed 'Annotation-heavy' results.
 let s:elements = {
     \ 'FUNCTION': ['Function', 'Identifier'],
     \ 'CONTROL':  ['Statement', 'Conditional', 'Repeat', 'Exception'],
@@ -41,7 +35,6 @@ let s:elements = {
     \ 'META':      ['Comment', 'Special']
     \ }
 
-" Generative cycle for dominance checking (e.g., WOOD -> EARTH)
 let s:dominance = {
     \ 'FUNCTION': 'DATA',
     \ 'DATA':     'META',
@@ -140,7 +133,7 @@ function! s:ScanRange(first, last) abort
 
     for l:lnum in range(a:first, a:last)
         let l:line_str = getline(l:lnum)
-        if empty(trim(l:line_str)) | continue | endif " Skip empty lines for cleaner stats
+        if empty(trim(l:line_str)) | continue | endif
 
         let l:width = col([l:lnum, '$'])
         let l:line_stats = s:BlankStats()
@@ -184,14 +177,11 @@ function! s:RealTimeCheck() abort
     let [l:stats, l:total, l:samples] = s:ScanRange(l:first, l:last)
     if l:total == 0 | return | endif
 
-    " Calculate percentages for UI reporting
     let l:p = {}
     for l:k in keys(l:stats)
         let l:p[l:k] = (l:stats[l:k] * 100.0) / l:total
     endfor
 
-    " --- Refined Profile Logic ---
-    " Increased thresholds to better reflect actual code tendencies.
     let l:profile = 'Balanced'
     if l:p['META'] > 60.0    | let l:profile = 'Annotation-heavy'
     elseif l:p['CONTROL'] > 35.0 | let l:profile = 'Flow-heavy'
@@ -199,7 +189,6 @@ function! s:RealTimeCheck() abort
     elseif l:p['TYPE'] > 40.0    | let l:profile = 'Definition-heavy'
     endif
 
-    " --- Dominance & Sign Placement ---
     let l:dom_msg = ''
     let l:notice_msg = ''
     let l:checkpoint_msg = ''
@@ -242,10 +231,8 @@ command! Opp let g:seoulism_warn_opp = 1 | call s:RealTimeCheck()
 command! NoOpp let g:seoulism_warn_opp = 0 | silent! execute 'sign unplace * group=SeoulismOpp buffer=' . bufnr('%')
 cnoreabbrev wopp Opp
 cnoreabbrev noopp NoOpp
-cnoreabbrev warncfg WarnCfg
 
 augroup SeoulismRealTime
     autocmd!
     autocmd CursorHold,CursorHoldI,BufWritePost * call s:RealTimeCheck()
-    autocmd ColorScheme seoulism unlet! g:loaded_seoulism_intense_checker
 augroup END
