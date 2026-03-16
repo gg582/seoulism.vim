@@ -21,7 +21,7 @@ let s:p.bg_sub       = '#07070a'
 let s:p.bg_alt       = '#1a1a22'
 let s:p.bg_sel       = '#2f4fa3'
 
-let s:p.fg           = '#a6a598'
+let s:p.fg           = '#b6b598'
 let s:p.fg_sub       = '#d7d6d2'
 let s:p.fg_bright    = '#efeeea'
 

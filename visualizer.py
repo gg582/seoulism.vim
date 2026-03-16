@@ -69,7 +69,7 @@ def draw_seoulism_chain():
         stage_idx = int(node.split('_')[1])
         if stage_idx in [2, 3]:
             # Simple brightness check: Dark text for light colors (Yellow/White/Jade)
-            text_color = '#181a1f' if (0.2126*int(hex_color[1:3],16) + 0.7152*int(hex_color[3:5],16) + 0.0722*int(hex_color[5:7],16)) > 135 else '#a6a598'
+            text_color = '#181a1f' if (0.2126*int(hex_color[1:3],16) + 0.7152*int(hex_color[3:5],16) + 0.0722*int(hex_color[5:7],16)) > 135 else '#b6b598'
         else:
             text_color = '#d7d6d2'
         
@@ -83,7 +83,7 @@ def draw_seoulism_chain():
                  ha='center', fontweight='extra bold')
 
     plt.title("Systemic Cognitive Mapping: From Elemental Logic to Seoulism", 
-              color='#a6a598', fontsize=15, pad=40, fontweight='bold')
+              color='#b6b598', fontsize=15, pad=40, fontweight='bold')
     
     plt.axis('off')
     plt.tight_layout()
