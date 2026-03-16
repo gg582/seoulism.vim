@@ -7,7 +7,7 @@ let s:bg_faint = ['#121318', 232]
 let s:bg_int   = ['#2b2e36', 235]
 
 let s:fg       = ['#eeeeee', 255]
-let s:fg_faint = ['#b7b6b2', 250]
+let s:fg_faint = ['#d7d6d2', 250]
 let s:fg_i     = ['#f9f9f9', 231]
 
 let s:red      = ['#e05a55', 203]

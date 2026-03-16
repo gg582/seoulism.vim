@@ -57,7 +57,7 @@ def draw_seoulism_chain():
 
     # Drawing the Nodes
     nx.draw_networkx_nodes(G, pos, node_color=node_colors, node_size=3200, 
-                           edgecolors='#b7b6b2', linewidths=0.5) # ForegroundFaint
+                           edgecolors='#d7d6d2', linewidths=0.5) # ForegroundFaint
 
     # Label Rendering with contrast-aware coloring
     for node, (x, y) in pos.items():
@@ -71,7 +71,7 @@ def draw_seoulism_chain():
             # Simple brightness check: Dark text for light colors (Yellow/White/Jade)
             text_color = '#181a1f' if (0.2126*int(hex_color[1:3],16) + 0.7152*int(hex_color[3:5],16) + 0.0722*int(hex_color[5:7],16)) > 135 else '#a6a598'
         else:
-            text_color = '#b7b6b2'
+            text_color = '#d7d6d2'
         
         plt.text(x, y, labels[node], fontsize=8, ha='center', va='center', 
                  fontweight='bold', color=text_color, wrap=True)

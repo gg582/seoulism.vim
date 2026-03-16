@@ -22,7 +22,7 @@ let s:p.bg_alt       = '#1a1a22'
 let s:p.bg_sel       = '#2f4fa3'
 
 let s:p.fg           = '#a6a598'
-let s:p.fg_sub       = '#b7b6b2'
+let s:p.fg_sub       = '#d7d6d2'
 let s:p.fg_bright    = '#efeeea'
 
 let s:p.vermilion    = '#e05a55'
