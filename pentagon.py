@@ -39,7 +39,7 @@ def draw_systemic_divergence():
             ax.add_patch(plt.Circle((x, y), 0.2, facecolor=col, edgecolor='#5f6770', zorder=5))
             is_light = (0.2126*int(col[1:3],16) + 0.7152*int(col[3:5],16) + 0.0722*int(col[5:7],16)) > 135
             ax.text(x, y, f"{node['id']}\n{node['token'] if is_seoul else ''}", 
-                    ha='center', va='center', fontsize=9, fontweight='black', color='#181a1f' if is_light else '#b6b598', zorder=6)
+                    ha='center', va='center', fontsize=9, fontweight='black', color='#181a1f' if is_light else '#b6b5a8', zorder=6)
 
     render_layer(ax1, "trad", "CANONICAL PROTOCOL")
     render_layer(ax2, "seoul", "SEOULISM SYSTEM", is_seoul=True)
