@@ -92,6 +92,14 @@ call s:hi('LineNr', s:p.charcoal, s:p.bg, '239', '233', 'NONE')
 call s:hi('CursorLineNr', s:p.gold, '#2b2e36', '222', '235', 'bold')
 call s:hi('StatusLine', s:p.fg, '#2b2e36', '255', '235', 'bold')
 call s:hi('StatusLineNC', s:p.fg_sub, '#121318', '250', '232', 'NONE')
+call s:hi('StatusLineTerm', s:p.fg_bright, '#2b2e36', '231', '235', 'bold')
+call s:hi('StatusLineTermNC', s:p.fg_sub, '#121318', '250', '232', 'NONE')
+call s:hi('WinBar', s:p.fg_bright, '#2b2e36', '231', '235', 'bold')
+call s:hi('WinBarNC', s:p.fg_sub, '#121318', '250', '232', 'NONE')
+call s:hi('TabLine', s:p.fg_sub, '#2b2e36', '250', '235', 'NONE')
+call s:hi('TabLineSel', s:p.bg, s:p.jade, '233', '36', 'bold')
+call s:hi('TabLineFill', s:p.charcoal, '#121318', '239', '232', 'NONE')
+call s:hi('WildMenu', s:p.bg, s:p.ochre, '233', '221', 'bold')
 call s:hi('VertSplit', '#121318', '#121318', '232', '232', 'NONE')
 call s:hi('Pmenu', s:p.fg, '#2b2e36', '255', '235', 'NONE')
 call s:hi('PmenuSel', s:p.fg_bright, s:p.bg_sel, '231', '25', 'bold')
@@ -112,6 +120,60 @@ call s:hi('ModeMsg', s:p.vermilion, 'NONE', '167', 'NONE', 'bold')
 call s:hi('Question', s:p.vermilion, 'NONE', '167', 'NONE', 'bold')
 call s:hi('WarningMsg', s:p.ochre, 'NONE', '221', 'NONE', 'bold')
 call s:hi('ErrorMsg', '#e77e79', s:p.bg, '203', '233', 'bold')
+
+" Statusline segment slots used by Vim's %1*..%9* syntax and lightweight
+" statusline plugins. These also give integrations such as vim-go a palette
+" when their status text is embedded in a custom bottom bar.
+call s:hi('User1', s:p.bg, s:p.vermilion, '233', '167', 'bold')
+call s:hi('User2', s:p.fg_bright, '#2b2e36', '231', '235', 'NONE')
+call s:hi('User3', s:p.fg_sub, '#121318', '250', '232', 'NONE')
+call s:hi('User4', s:p.bg, s:p.ochre, '233', '221', 'bold')
+call s:hi('User5', s:p.bg, '#e77e79', '233', '203', 'bold')
+call s:hi('User6', s:p.bg, s:p.emerald, '233', '35', 'bold')
+call s:hi('User7', s:p.bg, s:p.sky, '233', '69', 'bold')
+call s:hi('User8', s:p.bg, s:p.vermilion, '233', '167', 'bold')
+call s:hi('User9', s:p.charcoal, s:p.bg_sub, '239', '232', 'NONE')
+
+" Compatibility names used by small statusline/tabline plugins and user
+" configs. Unknown highlight groups are harmless in Vim and Neovim.
+hi! link ColorLineNormal User1
+hi! link ColorLineInsert User6
+hi! link ColorLineVisual User7
+hi! link ColorLineReplace User4
+hi! link ColorLineCommand User1
+hi! link ColorLineInactive User3
+hi! link ColorLineGitAdd User6
+hi! link ColorLineGitChange User7
+hi! link ColorLineGitDelete User8
+hi! link SkylineNormal User1
+hi! link SkylineInsert User6
+hi! link SkylineVisual User7
+hi! link SkylineReplace User4
+hi! link SkylineCommand User1
+hi! link SkylineInactive User3
+hi! link SkylineGitAdd User6
+hi! link SkylineGitChange User7
+hi! link SkylineGitDelete User8
+hi! link MiniStatuslineModeNormal User1
+hi! link MiniStatuslineModeInsert User6
+hi! link MiniStatuslineModeVisual User7
+hi! link MiniStatuslineModeReplace User4
+hi! link MiniStatuslineModeCommand User1
+hi! link MiniStatuslineModeOther User2
+hi! link MiniStatuslineDevinfo User2
+hi! link MiniStatuslineFileinfo User2
+hi! link MiniStatuslineFilename User3
+hi! link MiniStatuslineInactive User3
+hi! link GitGutterAdd User6
+hi! link GitGutterChange User7
+hi! link GitGutterDelete User8
+hi! link GitGutterChangeDelete User4
+hi! link SignifySignAdd GitGutterAdd
+hi! link SignifySignChange GitGutterChange
+hi! link SignifySignDelete GitGutterDelete
+hi! link GitSignsAdd GitGutterAdd
+hi! link GitSignsChange GitGutterChange
+hi! link GitSignsDelete GitGutterDelete
 
 " =============================================================================
 " Diagnostics & Diff

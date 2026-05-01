@@ -34,6 +34,14 @@ let g:seoulism_enable_checker = 1
 let g:seoulism_italic = 0
 ```
 
+### Statusline / bottom bar support
+
+Seoulism includes colors for Vim's built-in `StatusLine`, `StatusLineNC`,
+`StatusLineTerm`, `TabLine`, `WinBar`, and `User1`-`User9` statusline segment
+groups. It also ships matching palettes for lightline, vim-airline, and
+lualine, plus compatibility highlight groups for smaller statusline and Git
+indicator plugins.
+
 ---
 
 ## A Korean palette, made readable
