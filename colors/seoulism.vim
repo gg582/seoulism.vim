@@ -26,7 +26,7 @@ let s:p.fg_sub       = '#d7d6d2'
 let s:p.fg_bright    = '#efeeea'
 
 let s:p.vermilion    = '#e05a55'
-let s:p.jade         = '#3aa39a'
+let s:p.jade         = '#359489'
 let s:p.emerald      = '#35a06f'
 let s:p.ochre        = '#e5c15a'
 let s:p.royal_blue   = '#3f6bd9'

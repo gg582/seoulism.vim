@@ -9,7 +9,7 @@ let s:red      = '#e05a55'
 let s:green    = '#35a06f'
 let s:yellow   = '#e5c15a'
 let s:blue     = '#3f6bd9'
-let s:jade     = '#3aa39a'
+let s:jade     = '#359489'
 let s:gray     = '#5f6770'
 
 let s:N1 = [s:bg, s:red, 233, 167, 'bold']

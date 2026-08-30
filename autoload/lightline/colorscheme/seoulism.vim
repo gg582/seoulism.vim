@@ -14,7 +14,7 @@ let s:red      = ['#e05a55', 203]
 let s:red_dim  = ['#b24a45', 131]
 
 let s:blue     = ['#3f6bd9', 26]
-let s:jade     = ['#3aa39a', 36]
+let s:jade     = ['#359489', 36]
 let s:green    = ['#35a06f', 35]
 let s:yellow   = ['#e5c15a', 221]
 let s:gray     = ['#5f6770', 239]

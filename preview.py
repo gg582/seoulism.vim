@@ -4,7 +4,7 @@ import matplotlib.patches as patches
 def draw_seoulism_blueprint():
     # 1. Systemic Mapping Data
     mapping = [
-        {"id": "c6", "tag": "JADE",   "hex": "#3aa39a", "element": "WOOD",    "logic": "Birth / Formatter, Function"},
+        {"id": "c6", "tag": "JADE",   "hex": "#359489", "element": "WOOD",    "logic": "Birth / Formatter, Function"},
         {"id": "c1", "tag": "RED",    "hex": "#e05a55", "element": "FIRE",    "logic": "Dread / Alert / Syntax"},
         {"id": "c3", "tag": "GOLD",   "hex": "#e5c15a", "element": "EARTH",   "logic": "Origin / Literal"},
         {"id": "c4", "tag": "BLUE",   "hex": "#3f6bd9", "element": "WOOD(LINK)",    "logic": "Reference / Navigation"},
@@ -27,7 +27,7 @@ def draw_seoulism_blueprint():
     ax.text(10, 92, "SEOULISM: Systemic Cognitive Mapping",
             color='#b6b5a8', fontsize=20, ha='left', weight='bold')
     ax.text(10, 89, "Functional implementation of Obangsaek logic",
-            color='#3aa39a', fontsize=10, ha='left', style='italic')
+            color='#359489', fontsize=10, ha='left', style='italic')
 
     # 3. Structural Grid Rendering
     for i, item in enumerate(mapping):

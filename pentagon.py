@@ -5,7 +5,7 @@ import matplotlib.patches as patches
 def draw_systemic_divergence():
     # 1. Structural Data (User's definitive palette)
     elements = [
-        {"id": "WOOD",  "trad": "#0000FF", "seoul": "#3aa39a", "token": "c6"},
+        {"id": "WOOD",  "trad": "#0000FF", "seoul": "#359489", "token": "c6"},
         {"id": "FIRE",  "trad": "#FF0000", "seoul": "#e05a55", "token": "c1"},
         {"id": "EARTH", "trad": "#FFFF00", "seoul": "#e5c15a", "token": "c3"}, # Index 2
         {"id": "METAL", "trad": "#FFFFFF", "seoul": "#efeeea", "token": "m1"},

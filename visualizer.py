@@ -10,7 +10,7 @@ def draw_seoulism_chain():
     # 1. Data Schema: (Direction, Element, Traditional Color, Trad Hex, Seoulism Token, Seoulism Hex, Cognitive Role)
     # This maps the ancestral systemic logic to the actual Vim palette provided.
     chains = [
-        ("Birth", "Wood", "Blue/Jade", "#0000FF", "Jade (c6)", "#3aa39a", "Format / Function"),
+        ("Birth", "Wood", "Blue/Jade", "#0000FF", "Jade (c6)", "#359489", "Format / Function"),
         ("Dread", "Fire", "Red", "#FF0000", "Red (c1)", "#e05a55", "Alert / Error / Syntax"),
         ("Origin", "Earth", "Yellow", "#FFFF00", "Gold (c3)", "#e5c15a", "Literal / Data"),
         ("Structure", "Metal", "White", "#FFFFFF", "Metal (m1)", "#efeeea", "Base / Structure"),
