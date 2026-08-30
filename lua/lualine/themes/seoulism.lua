@@ -5,7 +5,7 @@ local colors = {
   fg = '#efeeea',
   fg_faint = '#d7d6d2',
   red = '#e05a55',
-  green = '#3abf86',
+  green = '#35a06f',
   yellow = '#e5c15a',
   blue = '#3f6bd9',
 }
