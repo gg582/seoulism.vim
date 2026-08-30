@@ -44,9 +44,6 @@ def draw_systemic_divergence():
     render_layer(ax1, "trad", "CANONICAL PROTOCOL")
     render_layer(ax2, "seoul", "SEOULISM SYSTEM", is_seoul=True)
 
-    plt.figtext(0.5, 0.05, "DIVERGENCE: Color dimmed, no hierarchy between colors", 
-                color='#7f85ac', fontsize=12, ha='center', fontweight='bold')
-
     plt.savefig('pentagon_cycle.png', facecolor='#07070a', dpi=300, bbox_inches='tight')
 
 if __name__ == "__main__":
