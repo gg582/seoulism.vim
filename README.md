@@ -2,6 +2,8 @@
 
 A Vim and Neovim colorscheme inspired by Korean color tradition and modern Seoul light.
 
+![Normal](./normal.png)
+
 ![Preview](./preview.png)
 
 Seoulism translates Korean color sources into a clean dark UI palette with strong contrast. Quiet enough for deep work, sharp enough for structure.
@@ -33,6 +35,10 @@ let g:seoulism_enable_checker = 1
 " Toggle italics for comments and types (Default: 1)
 let g:seoulism_italic = 0
 ```
+
+![Rigorous](./rigorous.png)
+
+*A screenshot of Rigorous mode*
 
 ### Statusline / bottom bar support
 
